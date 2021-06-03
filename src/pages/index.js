@@ -181,8 +181,14 @@ export default function Home() {
 				. Depending on your internet connection speed, creating your
 				card may take up to 15-20 seconds.
 			</p>
+			{console.log(data)}
 			<div css={formCSS}>
-				<BusinessCardForm />
+				<BusinessCardForm
+					data={data}
+					createPDF={createPDF}
+					onInputChange={onInputChange}
+					onSelectChange={onSelectChange}
+				/>
 			</div>
 			<div css={cardCSS} ref={cardRef}></div>
 		</div>
