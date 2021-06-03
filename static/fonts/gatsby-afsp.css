@@ -1,0 +1,95 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3820141, 2019-10-06T08:57:40-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: AvenirNextLTPro-Regular by Linotype
+ * URL: https://www.myfonts.com/fonts/linotype/avenir-next-pro/pro-regular/
+ * Copyright: Copyright &#x00A9; 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype GmbH. Avenir is a trademark of Linotype GmbH
+ * 
+ * Webfont: AvenirNextLTPro-BoldIt by Linotype
+ * URL: https://www.myfonts.com/fonts/linotype/avenir-next-pro/pro-bold-italic/
+ * Copyright: Copyright &#x00A9; 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype GmbH. Avenir is a trademark of Linotype GmbH
+ * 
+ * Webfont: AvenirNextLTPro-Demi by Linotype
+ * URL: https://www.myfonts.com/fonts/linotype/avenir-next-pro/pro-demi/
+ * Copyright: Copyright &#x00A9; 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype GmbH. Avenir is a trademark of Linotype GmbH
+ * 
+ * Webfont: AvenirNextLTPro-It by Linotype
+ * URL: https://www.myfonts.com/fonts/linotype/avenir-next-pro/pro-italic/
+ * Copyright: Copyright &#x00A9; 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype GmbH. Avenir is a trademark of Linotype GmbH
+ * 
+ * Webfont: AvenirNextLTPro-DemiIt by Linotype
+ * URL: https://www.myfonts.com/fonts/linotype/avenir-next-pro/pro-demi-italic/
+ * Copyright: Copyright &#x00A9; 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype GmbH. Avenir is a trademark of Linotype GmbH
+ * 
+ * Webfont: AvenirNextLTPro-Bold by Linotype
+ * URL: https://www.myfonts.com/fonts/linotype/avenir-next-pro/pro-bold/
+ * Copyright: Copyright &#x00A9; 2004 - 2007 Linotype GmbH, www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype GmbH. Avenir is a trademark of Linotype GmbH
+ * 
+ * Webfont: PaulGroteskSoft-Bold by artill
+ * URL: https://www.myfonts.com/fonts/artill-typs/paul-grotesk-soft/bold/
+ * Copyright: Copyright &#x00A9; 2016 by Fargus Meiser +  Lukas Bischoff artill. All rights reserved.
+ * 
+ * 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3820141
+ * Licensed pageviews: 500,000
+ * 
+ * © 2019 MyFonts Inc
+*/
+
+/* @import must be at top of file, otherwise CSS will not work */
+/* @import url('//hello.myfonts.net/count/3a4a6d'); */
+
+@font-face {
+	font-family: 'AvenirNextLTPro-Regular';
+	src: url('webfonts/3A4A6D_0_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_0_0.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'AvenirNextLTPro-BoldIt';
+	src: url('webfonts/3A4A6D_1_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_1_0.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'AvenirNextLTPro-Demi';
+	src: url('webfonts/3A4A6D_2_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_2_0.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'AvenirNextLTPro-It';
+	src: url('webfonts/3A4A6D_3_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_3_0.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'AvenirNextLTPro-DemiIt';
+	src: url('webfonts/3A4A6D_4_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_4_0.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'AvenirNextLTPro-Bold';
+	src: url('webfonts/3A4A6D_5_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_5_0.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'PaulGroteskSoft-Bold';
+	src: url('webfonts/3A4A6D_6_0.woff2') format('woff2'),
+		url('webfonts/3A4A6D_6_0.woff') format('woff');
+	font-display: swap;
+}
