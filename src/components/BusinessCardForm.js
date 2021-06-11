@@ -5,6 +5,8 @@ import Select from 'react-select'
 import Toggle from 'react-toggle'
 
 import affiliations from '../utils/affiliations'
+import chapters from '../utils/chapters'
+import states from '../utils/states'
 
 import 'react-toggle/style.css'
 
@@ -20,7 +22,8 @@ const formCSS = css`
 	.react-toggle {
 		margin: 24px 0 6px;
 	}
-	label[for='showAddress'] {
+	label[for='showAddress'],
+	label[for='walkURL'] {
 		display: inline;
 		padding-left: 24px;
 		vertical-align: 12px;
@@ -78,12 +81,14 @@ const formCSS = css`
 
 const BusinessCardForm = ({
 	data,
+	showAddress,
+	walkURL,
 	createPDF,
 	onInputChange,
 	onSelectChange,
+	onToggleChange,
 }) => {
 	const { handleSubmit, control, register } = useForm()
-	const [showAddress, setShowAddress] = useState(false)
 
 	const submitForm = () => {
 		createPDF()
@@ -124,20 +129,8 @@ const BusinessCardForm = ({
 				onChange={onInputChange}
 			/>
 			<label id="affiliation" htmlFor="affiliation">
-				Choose Your Affiliation
+				Affiliation
 			</label>
-			{/* <Controller
-				as={Select}
-				className="react-select__control"
-				classNamePrefix="react-select"
-				name="affiliation"
-				control={control}
-				options={affiliations}
-				value={data.affiliation ? data.affiliation : ''}
-				onChange={data => {
-					onSelectChange(data)
-				}}
-			/> */}
 			<Controller
 				name="affiliation"
 				control={control}
@@ -146,14 +139,144 @@ const BusinessCardForm = ({
 						{...field}
 						classNamePrefix="react-select"
 						options={affiliations}
+						value={data.affiliation}
+						onChange={data => {
+							onSelectChange({ ...data, name: 'affiliation' })
+						}}
 					/>
 				)}
 			/>
-			{(data.affiliation === 'Chapter' ||
-				data.affiliation === 'Out of the Darkness Campus Walk' ||
-				data.affiliation === 'Out of the Darkness Community Walk') && (
-				<div></div>
-			)}
+			{data.affiliation &&
+				(data.affiliation.value === 'Chapter' ||
+					data.affiliation.value ===
+						'Out of the Darkness Campus Walk' ||
+					data.affiliation.value ===
+						'Out of the Darkness Community Walk') && (
+					<>
+						<label id="chapter" htmlFor="chapter">
+							Chapter
+						</label>
+						<Controller
+							name="chapter"
+							control={control}
+							render={({ field }) => (
+								<Select
+									{...field}
+									classNamePrefix="react-select"
+									options={chapters}
+									value={data.chapter}
+									onChange={data => {
+										onSelectChange({
+											...data,
+											name: 'chapter',
+										})
+									}}
+								/>
+							)}
+						/>
+						{data.affiliation.value === 'Chapter' && (
+							<>
+								<Toggle
+									name="showAddress"
+									onChange={onToggleChange}
+								/>
+								<label htmlFor="showAddress">
+									Show address on business card?
+								</label>
+							</>
+						)}
+						{(data.affiliation.value ===
+							'Out of the Darkness Campus Walk' ||
+							data.affiliation.value ===
+								'Out of the Darkness Community Walk') && (
+							<>
+								<Toggle
+									name="walkURL"
+									onChange={onToggleChange}
+								/>
+								<label htmlFor="walkURL">
+									Customize walk URL?
+								</label>
+							</>
+						)}
+						{console.log(
+							`${showAddress} && ${data.affiliation.value}`
+						)}
+						{showAddress && data.affiliation.value === 'Chapter' && (
+							<>
+								<label htmlFor="address1">Address 1</label>
+								<input
+									{...register('address1')}
+									type="text"
+									name="address1"
+									id="address1"
+									onChange={onInputChange}
+								/>
+								<label htmlFor="address2">Address 2</label>
+								<input
+									{...register('address2')}
+									type="text"
+									name="address2"
+									id="address2"
+									onChange={onInputChange}
+								/>
+								<label htmlFor="city">City</label>
+								<input
+									{...register('city')}
+									type="text"
+									name="city"
+									id="city"
+									onChange={onInputChange}
+								/>
+								<label id="state" htmlFor="state">
+									State
+								</label>
+								<Controller
+									name="state"
+									control={control}
+									render={({ field }) => (
+										<Select
+											{...field}
+											classNamePrefix="react-select"
+											options={states}
+											value={data.state}
+											onChange={data => {
+												onSelectChange({
+													...data,
+													name: 'state',
+												})
+											}}
+										/>
+									)}
+								/>
+								<label htmlFor="zipCode">Zip Code</label>
+								<input
+									{...register('zipCode')}
+									type="text"
+									name="zipCode"
+									id="zipCode"
+									onChange={onInputChange}
+								/>
+							</>
+						)}
+						{walkURL && data.affiliation.value !== 'Chapter' && (
+							<>
+								<label htmlFor="URL">Walk URL alias</label>
+								<div id="urlWrapper">
+									<span>afsp.org/</span>
+									<input
+										{...register('URL')}
+										value={data.url}
+										type="text"
+										name="URL"
+										id="URL"
+										onChange={onInputChange}
+									/>
+								</div>
+							</>
+						)}
+					</>
+				)}
 		</form>
 	)
 }

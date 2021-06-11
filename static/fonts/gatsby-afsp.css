@@ -93,3 +93,9 @@
 		url('webfonts/3A4A6D_6_0.woff') format('woff');
 	font-display: swap;
 }
+
+.cardBackText {
+	visibility: hidden;
+	font-family: 'AvenirNextLTPro-Regular';
+	font-size: 9px;
+}

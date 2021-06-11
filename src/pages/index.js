@@ -5,6 +5,7 @@ import useImage from 'use-image'
 import DocRaptor from '../utils/docraptor'
 
 import BusinessCardForm from '../components/BusinessCardForm'
+import BusinessCardFront from '../components/BusinessCardFront'
 
 const appCSS = css`
 	display: grid;
@@ -54,6 +55,8 @@ export default function Home() {
 	const [width, setWidth] = useState(0)
 	const [height, setHeight] = useState(0)
 	const [data, setData] = useState({})
+	const [showAddress, setShowAddress] = useState(false)
+	const [walkURL, setWalkURL] = useState(false)
 	const [print, setPrint] = useState(false)
 	const [cardFront, setCardFront] = useState(null)
 	const [cardFrontImage] = useImage(cardFront)
@@ -117,23 +120,46 @@ export default function Home() {
 		}
 	}
 	const onSelectChange = e => {
-		switch (e[1].name) {
+		switch (e.name) {
 			case 'socialChannel':
-				setData({ ...data, socialChannel: e[0].value })
+				setData({
+					...data,
+					socialChannel: { value: e.value, label: e.label },
+				})
 				break
 			case 'affiliation':
-				setData({ ...data, affiliation: e[0].value })
+				setData({
+					...data,
+					affiliation: { value: e.value, label: e.label },
+				})
 				break
 			case 'chapter':
 				setData({
 					...data,
-					chapter: e[0].value,
-					logo: e[0].logo,
-					url: e[0].url,
+					chapter: { value: e.value, label: e.label },
+					logo: e.logo,
+					url: !walkURL ? e.url : data.url,
 				})
 				break
 			case 'state':
-				setData({ ...data, state: e[0].value })
+				setData({
+					...data,
+					state: { value: e.value, label: e.label },
+				})
+				break
+			default:
+				return
+		}
+	}
+
+	const onToggleChange = e => {
+		console.log(`${e.target.name} = ${e.target.checked}`)
+		switch (e.target.name) {
+			case 'showAddress':
+				setShowAddress(e.target.checked)
+				break
+			case 'walkURL':
+				setWalkURL(e.target.checked)
 				break
 			default:
 				return
@@ -181,16 +207,20 @@ export default function Home() {
 				. Depending on your internet connection speed, creating your
 				card may take up to 15-20 seconds.
 			</p>
-			{console.log(data)}
 			<div css={formCSS}>
 				<BusinessCardForm
 					data={data}
+					showAddress={showAddress}
+					walkURL={walkURL}
 					createPDF={createPDF}
 					onInputChange={onInputChange}
 					onSelectChange={onSelectChange}
+					onToggleChange={onToggleChange}
 				/>
 			</div>
-			<div css={cardCSS} ref={cardRef}></div>
+			<div css={cardCSS} ref={cardRef}>
+				<BusinessCardFront data={data} width={width} height={height} />
+			</div>
 		</div>
 	)
 }
