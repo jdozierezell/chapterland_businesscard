@@ -6,6 +6,7 @@ import DocRaptor from '../utils/docraptor'
 
 import BusinessCardForm from '../components/BusinessCardForm'
 import BusinessCardFront from '../components/BusinessCardFront'
+import BusinessCardBack from '../components/BusinessCardBack'
 
 const appCSS = css`
 	display: grid;
@@ -220,6 +221,7 @@ export default function Home() {
 			</div>
 			<div css={cardCSS} ref={cardRef}>
 				<BusinessCardFront data={data} width={width} height={height} />
+				<BusinessCardBack data={data} width={width} height={height} />
 			</div>
 		</div>
 	)
