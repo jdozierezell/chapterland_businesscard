@@ -15,10 +15,9 @@ const BusinessCardFront = ({ data, width, height }) => {
 	let imageFileName = defaultImage
 	let address1, address2, city, state, zipCode
 	if (data.affiliation) {
-		console.log(data.affiliation.value)
 		switch (data.affiliation.value) {
 			case 'Chapter':
-				if (data.chapter.value) {
+				if (data.chapter) {
 					if (data.chapter.value !== 'No Chapter') {
 						address1 = data.address1
 						address2 = data.address2
@@ -169,6 +168,9 @@ const BusinessCardFront = ({ data, width, height }) => {
 		state,
 		zipCode,
 	])
+	// MAGIC NUMBERS
+	// 47 = (logo image height - distance to top of logo) / 3
+	// 138 = height of logo / 3
 	return (
 		<Stage width={width} height={height}>
 			<Layer>
@@ -181,18 +183,22 @@ const BusinessCardFront = ({ data, width, height }) => {
 								addressWidth * ratio)) /
 						2
 					}
-					y={height / 2 - (imageHeight * imageRatio) / 2}
+					y={height / 1.75 - ((imageHeight - 47) * imageRatio) / 2}
 				>
 					<KonvaImage
 						image={image}
 						width={imageWidth * imageRatio}
 						height={imageHeight * imageRatio}
 						x={0}
+						y={-47 * imageRatio}
 					/>
+					{console.log(
+						`image height: ${imageHeight} and image ratio: ${imageRatio}`
+					)}
 					{addressWidth > 0 && (
 						<Line
 							x={imageWidth * imageRatio + 6 * ratio}
-							points={[0, 0, 0, imageHeight * imageRatio]}
+							points={[0, 0, 0, 138 * imageRatio]}
 							stroke="#262626"
 							strokeWidth={1}
 						/>
@@ -201,10 +207,7 @@ const BusinessCardFront = ({ data, width, height }) => {
 						fill={gray}
 						// x={(width / 2) + (8 * ratio)}
 						x={imageWidth * imageRatio + 6 * ratio * 2}
-						y={
-							(imageHeight * imageRatio) / 2 -
-							(addressLines * 12) / 2
-						}
+						y={0}
 						width={width / 2 - 23}
 						clip={{
 							x: 0,
@@ -218,14 +221,14 @@ const BusinessCardFront = ({ data, width, height }) => {
 							text={address1}
 							fontSize={10 * ratio}
 							letterSpacing={-1}
-							y={0 * 14}
+							y={0 * 12.5}
 						/>
 						<Text
 							fontFamily={avenir}
 							text={address2}
 							fontSize={10 * ratio}
 							letterSpacing={-1}
-							y={1 * 14 * ratio}
+							y={1 * 12.5 * ratio}
 						/>
 						<Text
 							fontFamily={avenir}
@@ -234,7 +237,7 @@ const BusinessCardFront = ({ data, width, height }) => {
 							} ${zipCode ? zipCode : ''}`}
 							fontSize={10 * ratio}
 							letterSpacing={-1}
-							y={address2 ? 2 * 14 * ratio : 1 * 14 * ratio}
+							y={address2 ? 2 * 12.5 * ratio : 1 * 12.5 * ratio}
 						/>
 					</Group>
 				</Group>

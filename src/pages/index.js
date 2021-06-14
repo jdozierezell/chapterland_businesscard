@@ -8,6 +8,10 @@ import BusinessCardForm from '../components/BusinessCardForm'
 import BusinessCardFront from '../components/BusinessCardFront'
 import BusinessCardBack from '../components/BusinessCardBack'
 
+import affiliations from '../utils/affiliations'
+import chapters from '../utils/chapters'
+import states from '../utils/states'
+
 const appCSS = css`
 	display: grid;
 	grid-template-columns: 1fr;
@@ -121,30 +125,40 @@ export default function Home() {
 		}
 	}
 	const onSelectChange = e => {
+		const value = e.value
+		const label = e.label
 		switch (e.name) {
 			case 'socialChannel':
 				setData({
 					...data,
-					socialChannel: { value: e.value, label: e.label },
+					socialChannel: { value, label },
 				})
 				break
 			case 'affiliation':
-				if (
-					e.value === 'NYC' ||
-					e.value === 'DC' ||
-					e.value === 'Chapter'
-				) {
+				let url = data.url
+				if (value === 'NYC' || value === 'DC' || value === 'Chapter') {
 					setWalkURL(false)
+					console.log(data)
+					if (value === 'Chapter' && data.chapter) {
+						chapters.forEach(chapter => {
+							if (chapter.value === data.chapter.value) {
+								url = chapter.url
+							}
+						})
+					} else {
+						url = ''
+					}
 				}
 				setData({
 					...data,
-					affiliation: { value: e.value, label: e.label },
+					affiliation: { value, label },
+					url,
 				})
 				break
 			case 'chapter':
 				setData({
 					...data,
-					chapter: { value: e.value, label: e.label },
+					chapter: { value, label },
 					logo: e.logo,
 					url: !walkURL ? e.url : data.url,
 				})
@@ -152,7 +166,7 @@ export default function Home() {
 			case 'state':
 				setData({
 					...data,
-					state: { value: e.value, label: e.label },
+					state: { value, label },
 				})
 				break
 			default:
@@ -219,6 +233,9 @@ export default function Home() {
 					data={data}
 					showAddress={showAddress}
 					walkURL={walkURL}
+					affiliations={affiliations}
+					chapters={chapters}
+					states={states}
 					createPDF={createPDF}
 					onInputChange={onInputChange}
 					onSelectChange={onSelectChange}

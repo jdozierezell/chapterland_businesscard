@@ -4,10 +4,6 @@ import { useForm, Controller } from 'react-hook-form'
 import Select from 'react-select'
 import Toggle from 'react-toggle'
 
-import affiliations from '../utils/affiliations'
-import chapters from '../utils/chapters'
-import states from '../utils/states'
-
 import 'react-toggle/style.css'
 
 const formCSS = css`
@@ -83,6 +79,9 @@ const BusinessCardForm = ({
 	data,
 	showAddress,
 	walkURL,
+	affiliations,
+	chapters,
+	states,
 	createPDF,
 	onInputChange,
 	onSelectChange,
