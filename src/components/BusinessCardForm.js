@@ -199,9 +199,6 @@ const BusinessCardForm = ({
 								</label>
 							</>
 						)}
-						{console.log(
-							`${showAddress} && ${data.affiliation.value}`
-						)}
 						{showAddress && data.affiliation.value === 'Chapter' && (
 							<>
 								<label htmlFor="address1">Address 1</label>
@@ -266,7 +263,7 @@ const BusinessCardForm = ({
 									<span>afsp.org/</span>
 									<input
 										{...register('URL')}
-										value={data.url}
+										value={data.url ? data.url : ''}
 										type="text"
 										name="URL"
 										id="URL"

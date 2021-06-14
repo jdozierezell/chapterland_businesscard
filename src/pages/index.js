@@ -85,6 +85,7 @@ export default function Home() {
 	}
 
 	const onInputChange = e => {
+		console.log(walkURL)
 		switch (e.target.name) {
 			case 'name':
 				setData({ ...data, name: e.target.value })
@@ -129,6 +130,13 @@ export default function Home() {
 				})
 				break
 			case 'affiliation':
+				if (
+					e.value === 'NYC' ||
+					e.value === 'DC' ||
+					e.value === 'Chapter'
+				) {
+					setWalkURL(false)
+				}
 				setData({
 					...data,
 					affiliation: { value: e.value, label: e.label },
@@ -154,7 +162,6 @@ export default function Home() {
 	}
 
 	const onToggleChange = e => {
-		console.log(`${e.target.name} = ${e.target.checked}`)
 		switch (e.target.name) {
 			case 'showAddress':
 				setShowAddress(e.target.checked)
