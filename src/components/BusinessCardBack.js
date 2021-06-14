@@ -68,12 +68,12 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 				zipCode = null
 				imageFileName = defaultImage
 		}
-		if (!data.chapter) {
-			if (data.affiliation === 'Out of the Darkness Campus Walk') {
+		if (!data.chapter || data.chapter.value === 'No Chapter') {
+			if (data.affiliation.value === 'Out of the Darkness Campus Walk') {
 				imageFileName =
 					'https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Campus_Walks_CMYK.png'
 			} else if (
-				data.affiliation === 'Out of the Darkness Community Walk'
+				data.affiliation.value === 'Out of the Darkness Community Walk'
 			) {
 				imageFileName =
 					'https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Community_Walks_CMYK.png'
@@ -175,8 +175,9 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 		zipCode,
 	])
 	// MAGIC NUMBERS
-	// 47 = (logo image height - distance to top of logo) / 3
+	// 47 = distance from top of image to logo / 3
 	// 138 = height of logo / 3
+	// 23 = distance from right of image to logo / 3
 	return (
 		<Stage width={width} height={height}>
 			<Layer>
@@ -201,15 +202,14 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 					{addressWidth > 0 && (
 						<>
 							<Line
-								x={imageWidth * imageRatio + 6 * ratio}
+								x={imageWidth * imageRatio}
 								points={[0, 0, 0, 138 * imageRatio]}
 								stroke="#262626"
 								strokeWidth={1}
 							/>
 							<Group
 								fill={gray}
-								// x={(width / 2) + (8 * ratio)}
-								x={imageWidth * imageRatio + 6 * ratio * 2}
+								x={(imageWidth + 23) * imageRatio}
 								y={0}
 								width={width / 2 - 23}
 								clip={{
