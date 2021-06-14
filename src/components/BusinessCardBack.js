@@ -10,7 +10,7 @@ import {
 } from 'react-konva'
 import useImage from 'use-image'
 
-const BusinessCardFront = ({ data, width, height }) => {
+const BusinessCardBack = ({ data, showAddress, width, height }) => {
 	const defaultImage = `https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_Logo_CMYK.png`
 	let imageFileName = defaultImage
 	let address1, address2, city, state, zipCode
@@ -131,13 +131,18 @@ const BusinessCardFront = ({ data, width, height }) => {
 		document.body.append(measureAddress1)
 		document.body.append(measureAddress2)
 		document.body.append(measureCityStateZip)
-		setAddressWidth(
-			Math.max.apply(null, [
-				measureAddress1.offsetWidth,
-				measureAddress2.offsetWidth,
-				measureCityStateZip.offsetWidth,
-			])
-		)
+		if (showAddress) {
+			console.log(showAddress)
+			setAddressWidth(
+				Math.max.apply(null, [
+					measureAddress1.offsetWidth,
+					measureAddress2.offsetWidth,
+					measureCityStateZip.offsetWidth,
+				])
+			)
+		} else {
+			setAddressWidth(0)
+		}
 		if (image) {
 			setImageWidth((image.width * 1) / 3)
 			setImageHeight((image.height * 1) / 3)
@@ -153,6 +158,7 @@ const BusinessCardFront = ({ data, width, height }) => {
 		}
 		setAddressLines(lines * ratio)
 	}, [
+		showAddress,
 		width,
 		height,
 		image,
@@ -192,58 +198,61 @@ const BusinessCardFront = ({ data, width, height }) => {
 						x={0}
 						y={-47 * imageRatio}
 					/>
-					{console.log(
-						`image height: ${imageHeight} and image ratio: ${imageRatio}`
-					)}
 					{addressWidth > 0 && (
-						<Line
-							x={imageWidth * imageRatio + 6 * ratio}
-							points={[0, 0, 0, 138 * imageRatio]}
-							stroke="#262626"
-							strokeWidth={1}
-						/>
+						<>
+							<Line
+								x={imageWidth * imageRatio + 6 * ratio}
+								points={[0, 0, 0, 138 * imageRatio]}
+								stroke="#262626"
+								strokeWidth={1}
+							/>
+							<Group
+								fill={gray}
+								// x={(width / 2) + (8 * ratio)}
+								x={imageWidth * imageRatio + 6 * ratio * 2}
+								y={0}
+								width={width / 2 - 23}
+								clip={{
+									x: 0,
+									y: 0,
+									width: width / 2 - 23,
+									height: addressLines * 12 * ratio,
+								}}
+							>
+								<Text
+									fontFamily={avenir}
+									text={address1}
+									fontSize={10 * ratio}
+									letterSpacing={-1}
+									y={0 * 12.5}
+								/>
+								<Text
+									fontFamily={avenir}
+									text={address2}
+									fontSize={10 * ratio}
+									letterSpacing={-1}
+									y={1 * 12.5 * ratio}
+								/>
+								<Text
+									fontFamily={avenir}
+									text={`${city ? `${city},` : ''} ${
+										state ? state : ''
+									} ${zipCode ? zipCode : ''}`}
+									fontSize={10 * ratio}
+									letterSpacing={-1}
+									y={
+										address2
+											? 2 * 12.5 * ratio
+											: 1 * 12.5 * ratio
+									}
+								/>
+							</Group>
+						</>
 					)}
-					<Group
-						fill={gray}
-						// x={(width / 2) + (8 * ratio)}
-						x={imageWidth * imageRatio + 6 * ratio * 2}
-						y={0}
-						width={width / 2 - 23}
-						clip={{
-							x: 0,
-							y: 0,
-							width: width / 2 - 23,
-							height: addressLines * 12 * ratio,
-						}}
-					>
-						<Text
-							fontFamily={avenir}
-							text={address1}
-							fontSize={10 * ratio}
-							letterSpacing={-1}
-							y={0 * 12.5}
-						/>
-						<Text
-							fontFamily={avenir}
-							text={address2}
-							fontSize={10 * ratio}
-							letterSpacing={-1}
-							y={1 * 12.5 * ratio}
-						/>
-						<Text
-							fontFamily={avenir}
-							text={`${city ? `${city},` : ''} ${
-								state ? state : ''
-							} ${zipCode ? zipCode : ''}`}
-							fontSize={10 * ratio}
-							letterSpacing={-1}
-							y={address2 ? 2 * 12.5 * ratio : 1 * 12.5 * ratio}
-						/>
-					</Group>
 				</Group>
 			</Layer>
 		</Stage>
 	)
 }
 
-export default BusinessCardFront
+export default BusinessCardBack

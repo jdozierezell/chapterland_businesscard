@@ -244,7 +244,12 @@ export default function Home() {
 			</div>
 			<div css={cardCSS} ref={cardRef}>
 				<BusinessCardFront data={data} width={width} height={height} />
-				<BusinessCardBack data={data} width={width} height={height} />
+				<BusinessCardBack
+					data={data}
+					showAddress={showAddress}
+					width={width}
+					height={height}
+				/>
 			</div>
 		</div>
 	)
