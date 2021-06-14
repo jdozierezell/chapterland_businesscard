@@ -1,4 +1,5 @@
 const chapters = [
+	{ value: 'No Chapter', label: 'No Chapter', logo: 'No Chapter', url: '' },
 	{ value: 'Alabama', label: 'Alabama', logo: 'Alabama', url: 'alabama' },
 	{ value: 'Alaska', label: 'Alaska', logo: 'Alaska', url: 'alaska' },
 	{ value: 'Arizona', label: 'Arizona', logo: 'Arizona', url: 'arizona' },

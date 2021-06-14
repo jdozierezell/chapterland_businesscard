@@ -11,31 +11,77 @@ import {
 import useImage from 'use-image'
 
 const BusinessCardFront = ({ data, width, height }) => {
-	let imageFileName
-	switch (data.affiliation) {
-		case 'Chapter':
-			imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_ChapterLogoLockup_${data.logo}_CMYK.png`
-			break
-		case 'Out of the Darkness Campus Walk':
-			imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Campus_Walks_${data.logo}_CMYK.png`
-			break
-		case 'Out of the Darkness Community Walk':
-			imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Community_Walks_${data.logo}_CMYK.png`
-			break
-		case 'NYC':
-		case 'DC':
-		default:
-			imageFileName = `https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_Logo_CMYK.png`
-	}
-	if (!data.chapter) {
-		if (data.affiliation === 'Out of the Darkness Campus Walk') {
-			imageFileName =
-				'https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Campus_Walks_CMYK.png'
-		} else if (data.affiliation === 'Out of the Darkness Community Walk') {
-			imageFileName =
-				'https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Community_Walks_CMYK.png'
+	const defaultImage = `https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_Logo_CMYK.png`
+	let imageFileName = defaultImage
+	let address1, address2, city, state, zipCode
+	if (data.affiliation) {
+		console.log(data.affiliation.value)
+		switch (data.affiliation.value) {
+			case 'Chapter':
+				if (data.chapter.value) {
+					if (data.chapter.value !== 'No Chapter') {
+						address1 = data.address1
+						address2 = data.address2
+						city = data.city
+						state = data.state
+						zipCode = data.zipCode
+						imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_ChapterLogoLockup_${data.logo}_CMYK.png`
+					}
+				}
+				break
+			case 'Out of the Darkness Campus Walk':
+				address1 = null
+				address2 = null
+				city = null
+				state = null
+				zipCode = null
+				imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Campus_Walks_${data.logo}_CMYK.png`
+				break
+			case 'Out of the Darkness Community Walk':
+				address1 = null
+				address2 = null
+				city = null
+				state = null
+				zipCode = null
+				imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Community_Walks_${data.logo}_CMYK.png`
+				break
+			case 'NYC':
+				address1 = '199 Water St.'
+				address2 = '11th Floor'
+				city = 'New York'
+				state = 'NY'
+				zipCode = 10038
+				imageFileName = defaultImage
+				break
+			case 'DC':
+				address1 = '440 First Street, NW'
+				address2 = 'Suite 300'
+				city = 'Washington'
+				state = 'D.C.'
+				zipCode = 20001
+				imageFileName = defaultImage
+				break
+			default:
+				address1 = null
+				address2 = null
+				city = null
+				state = null
+				zipCode = null
+				imageFileName = defaultImage
+		}
+		if (!data.chapter) {
+			if (data.affiliation === 'Out of the Darkness Campus Walk') {
+				imageFileName =
+					'https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Campus_Walks_CMYK.png'
+			} else if (
+				data.affiliation === 'Out of the Darkness Community Walk'
+			) {
+				imageFileName =
+					'https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_LogoLockup_Community_Walks_CMYK.png'
+			}
 		}
 	}
+
 	const [image] = useImage(imageFileName, 'Anonymous')
 	const [imageWidth, setImageWidth] = useState(0)
 	const [imageHeight, setImageHeight] = useState(0)
@@ -47,36 +93,6 @@ const BusinessCardFront = ({ data, width, height }) => {
 	const avenir = 'AvenirNextLTPro-Regular'
 	const white = 'white'
 	const gray = '#262626'
-
-	let address1, address2, city, state, zipCode
-	if (data.affiliation === 'NYC') {
-		address1 = '199 Water St.'
-		address2 = '11th Floor'
-		city = 'New York'
-		state = 'NY'
-		zipCode = 10038
-	} else if (data.affiliation === 'DC') {
-		address1 = '440 First Street, NW'
-		address2 = 'Suite 300'
-		city = 'Washington'
-		state = 'D.C.'
-		zipCode = 20001
-	} else if (data.affiliation === 'Chapter') {
-		address1 = data.address1
-		address2 = data.address2
-		city = data.city
-		state = data.state
-		zipCode = data.zipCode
-	} else if (
-		data.affiliation === 'Out of the Darkness Campus Walk' ||
-		data.affiliation === 'Out of the Darkness Community Walk'
-	) {
-		address1 = null
-		address2 = null
-		city = null
-		state = null
-		zipCode = null
-	}
 
 	useEffect(() => {
 		let measureAddress1
@@ -172,7 +188,6 @@ const BusinessCardFront = ({ data, width, height }) => {
 						width={imageWidth * imageRatio}
 						height={imageHeight * imageRatio}
 						x={0}
-						// x={(width / 2) - (imageWidth * imageRatio) - (8 * ratio)}
 					/>
 					{addressWidth > 0 && (
 						<Line

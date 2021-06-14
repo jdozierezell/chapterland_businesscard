@@ -85,7 +85,6 @@ export default function Home() {
 	}
 
 	const onInputChange = e => {
-		console.log(walkURL)
 		switch (e.target.name) {
 			case 'name':
 				setData({ ...data, name: e.target.value })
