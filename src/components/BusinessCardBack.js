@@ -222,14 +222,14 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 									fontFamily={avenir}
 									text={address1}
 									fontSize={10 * ratio}
-									letterSpacing={-1}
+									// letterSpacing={-1}
 									y={0 * 12.5}
 								/>
 								<Text
 									fontFamily={avenir}
 									text={address2}
 									fontSize={10 * ratio}
-									letterSpacing={-1}
+									// letterSpacing={-1}
 									y={1 * 12.5 * ratio}
 								/>
 								<Text
@@ -238,7 +238,7 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 										state ? state : ''
 									} ${zipCode ? zipCode : ''}`}
 									fontSize={10 * ratio}
-									letterSpacing={-1}
+									// letterSpacing={-1}
 									y={
 										address2
 											? 2 * 12.5 * ratio
