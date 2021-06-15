@@ -94,7 +94,7 @@ const BusinessCardForm = ({
 	}
 
 	return (
-		<form css={formCSS}>
+		<form css={formCSS} onSubmit={handleSubmit(submitForm)}>
 			<label htmlFor="name">Name</label>
 			<input
 				{...register('name')}
@@ -274,6 +274,7 @@ const BusinessCardForm = ({
 						)}
 					</>
 				)}
+			<input type="submit" value="Download PDF" />
 		</form>
 	)
 }
