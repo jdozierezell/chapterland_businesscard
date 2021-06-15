@@ -138,7 +138,6 @@ export default function Home() {
 				let url = data.url
 				if (value === 'NYC' || value === 'DC' || value === 'Chapter') {
 					setWalkURL(false)
-					console.log(data)
 					if (value === 'Chapter' && data.chapter) {
 						chapters.forEach(chapter => {
 							if (chapter.value === data.chapter.value) {

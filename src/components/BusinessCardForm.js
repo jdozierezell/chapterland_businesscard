@@ -178,6 +178,7 @@ const BusinessCardForm = ({
 								<Toggle
 									name="showAddress"
 									onChange={onToggleChange}
+									checked={showAddress}
 								/>
 								<label htmlFor="showAddress">
 									Show address on business card?

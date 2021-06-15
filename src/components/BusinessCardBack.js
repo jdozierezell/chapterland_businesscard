@@ -22,7 +22,7 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 						address1 = data.address1
 						address2 = data.address2
 						city = data.city
-						state = data.state
+						state = data.state ? data.state.value : ''
 						zipCode = data.zipCode
 						imageFileName = `https://aws-fetch.s3.amazonaws.com/logos/businesscards/AFSP_ChapterLogoLockup_${data.logo}_CMYK.png`
 					}
@@ -132,7 +132,6 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 		document.body.append(measureAddress2)
 		document.body.append(measureCityStateZip)
 		if (showAddress) {
-			console.log(showAddress)
 			setAddressWidth(
 				Math.max.apply(null, [
 					measureAddress1.offsetWidth,
@@ -199,7 +198,7 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 						x={0}
 						y={-47 * imageRatio}
 					/>
-					{addressWidth > 0 && (
+					{showAddress && addressWidth > 0 && (
 						<>
 							<Line
 								x={imageWidth * imageRatio}
