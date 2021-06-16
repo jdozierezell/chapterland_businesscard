@@ -173,18 +173,20 @@ const BusinessCardForm = ({
 								/>
 							)}
 						/>
-						{data.affiliation.value === 'Chapter' && (
-							<>
-								<Toggle
-									name="showAddress"
-									onChange={onToggleChange}
-									checked={showAddress}
-								/>
-								<label htmlFor="showAddress">
-									Show address on business card?
-								</label>
-							</>
-						)}
+						{data.affiliation.value === 'Chapter' &&
+							data.chapter &&
+							data.chapter.value !== 'No Chapter' && (
+								<>
+									<Toggle
+										name="showAddress"
+										onChange={onToggleChange}
+										checked={showAddress}
+									/>
+									<label htmlFor="showAddress">
+										Show address on business card?
+									</label>
+								</>
+							)}
 						{(data.affiliation.value ===
 							'Out of the Darkness Campus Walk' ||
 							data.affiliation.value ===

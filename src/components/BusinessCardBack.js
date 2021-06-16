@@ -131,16 +131,22 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 		document.body.append(measureAddress1)
 		document.body.append(measureAddress2)
 		document.body.append(measureCityStateZip)
-		if (showAddress) {
-			setAddressWidth(
-				Math.max.apply(null, [
-					measureAddress1.offsetWidth,
-					measureAddress2.offsetWidth,
-					measureCityStateZip.offsetWidth,
-				])
-			)
-		} else {
-			setAddressWidth(0)
+		if (data.affiliation) {
+			if (
+				showAddress ||
+				data.affiliation.value === 'NYC' ||
+				data.affiliation.value === 'DC'
+			) {
+				setAddressWidth(
+					Math.max.apply(null, [
+						measureAddress1.offsetWidth,
+						measureAddress2.offsetWidth,
+						measureCityStateZip.offsetWidth,
+					])
+				)
+			} else {
+				setAddressWidth(0)
+			}
 		}
 		if (image) {
 			setImageWidth((image.width * 1) / 3)
@@ -198,7 +204,7 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 						x={0}
 						y={-47 * imageRatio}
 					/>
-					{showAddress && addressWidth > 0 && (
+					{addressWidth > 0 && (
 						<>
 							<Line
 								x={imageWidth * imageRatio}
