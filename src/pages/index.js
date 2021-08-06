@@ -60,6 +60,17 @@ export default function Home() {
 	const [width, setWidth] = useState(0)
 	const [height, setHeight] = useState(0)
 	const [data, setData] = useState({})
+	const [remaining, setRemaining] = useState({
+		name: { length: 0, limit: 29 },
+		title: { length: 0, limit: 61 },
+		email: { length: 0, limit: 29 },
+		phone: { length: 0, limit: 21 },
+		address1: { length: 0, limit: 16 },
+		address2: { length: 0, limit: 16 },
+		city: { length: 0, limit: 13 },
+		zipCode: { length: 0, limit: 6 },
+		URL: { length: 0, limit: 21 },
+	})
 	const [showAddress, setShowAddress] = useState(false)
 	const [walkURL, setWalkURL] = useState(false)
 	const [print, setPrint] = useState(false)
@@ -88,11 +99,22 @@ export default function Home() {
 		setPrint(true)
 	}
 
-	const onInputChange = e => {
+	const onInputChange = (e) => {
+		setRemaining((prevState) => ({
+			...prevState,
+			[e.target.name]: {
+				...prevState[e.target.name],
+				length: e.target.value.length,
+			},
+		}))
 		if (e.target.value.length === e.target.maxLength) {
 			e.target.style.border = '1px solid #eb1426'
 			document.getElementById(`${e.target.name}Limit`).style.color =
 				'#eb1426'
+		} else {
+			e.target.style.border = '1px solid #262626'
+			document.getElementById(`${e.target.name}Limit`).style.color =
+				'#525252'
 		}
 		switch (e.target.name) {
 			case 'name':
@@ -129,7 +151,7 @@ export default function Home() {
 				return
 		}
 	}
-	const onSelectChange = e => {
+	const onSelectChange = (e) => {
 		const value = e.value
 		const label = e.label
 		switch (e.name) {
@@ -144,7 +166,7 @@ export default function Home() {
 				if (value === 'NYC' || value === 'DC' || value === 'Chapter') {
 					setWalkURL(false)
 					if (value === 'Chapter' && data.chapter) {
-						chapters.forEach(chapter => {
+						chapters.forEach((chapter) => {
 							if (chapter.value === data.chapter.value) {
 								url = chapter.url
 							}
@@ -178,7 +200,7 @@ export default function Home() {
 		}
 	}
 
-	const onToggleChange = e => {
+	const onToggleChange = (e) => {
 		switch (e.target.name) {
 			case 'showAddress':
 				setShowAddress(e.target.checked)
@@ -246,6 +268,7 @@ export default function Home() {
 					onInputChange={onInputChange}
 					onSelectChange={onSelectChange}
 					onToggleChange={onToggleChange}
+					remaining={remaining}
 				/>
 			</div>
 			<div css={cardCSS} ref={cardRef}>

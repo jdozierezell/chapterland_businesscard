@@ -14,6 +14,31 @@ const formCSS = css`
 		font-family: 'AvenirNextLTPro-Regular';
 		font-size: 16px;
 	}
+	input[type='submit'] {
+		background-color: #396dff;
+		color: white;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		:hover {
+			background-color: #3428bd;
+		}
+		:active {
+			background-color: #3428bd;
+		}
+	}
+	input:disabled {
+		background-color: #87a7ff;
+		color: white;
+		border: none;
+		outline: none;
+		:hover {
+			background-color: #87a7ff;
+		}
+		:active {
+			background-color: #87a7ff;
+		}
+	}
 	label,
 	.react-toggle {
 		margin: 24px 0 6px;
@@ -47,7 +72,9 @@ const formCSS = css`
 		}
 		span {
 			vertical-align: center;
-			padding-right: 0.5rem;
+			padding: 0 0.5rem 0 0;
+			font-size: 1em;
+			color: #262626;
 			font-family: 'AvenirNextLTPro-Demi';
 		}
 	}
@@ -65,9 +92,8 @@ const formCSS = css`
 		font-family: 'AvenirNextLTPro-Regular';
 		font-size: 16px;
 	}
-	input[type='submit'] {
+	.submit-wrapper {
 		margin-top: 48px;
-		cursor: pointer;
 	}
 	#showSocialLabel {
 		display: inline-block;
@@ -96,18 +122,33 @@ const BusinessCardForm = ({
 	onInputChange,
 	onSelectChange,
 	onToggleChange,
+	remaining,
 }) => {
 	const { handleSubmit, control, register } = useForm()
+	const formKeys = Object.keys(remaining)
+	let disabled = 0
 
 	const submitForm = () => {
 		createPDF()
 	}
 
+	formKeys.forEach((key) => {
+		if (remaining[key].length === remaining[key].limit) {
+			disabled++
+		}
+	})
+
+	disabled = disabled > 0 ? true : false
+
 	return (
 		<form css={formCSS} onSubmit={handleSubmit(submitForm)}>
 			<label htmlFor="name">Name</label>
 			<span id="nameLimit">
-				<em>Field limited to 28 characters</em>
+				<em>{`Field limited to ${
+					remaining.name.limit - 1
+				} characters. Characters remaining: ${
+					remaining.name.limit - 1 - remaining.name.length
+				}`}</em>
 			</span>
 			<input
 				{...register('name')}
@@ -115,11 +156,15 @@ const BusinessCardForm = ({
 				name="name"
 				id="name"
 				onChange={onInputChange}
-				maxLength={28}
+				maxLength={remaining.name.limit}
 			/>
 			<label htmlFor="title">Title</label>
 			<span id="titleLimit">
-				<em>Field limited to 60 characters</em>
+				<em>{`Field limited to ${
+					remaining.title.limit - 1
+				} characters. Characters remaining: ${
+					remaining.title.limit - 1 - remaining.title.length
+				}`}</em>
 			</span>
 			<input
 				{...register('title')}
@@ -127,11 +172,15 @@ const BusinessCardForm = ({
 				name="title"
 				id="title"
 				onChange={onInputChange}
-				maxLength={60}
+				maxLength={remaining.title.limit}
 			/>
 			<label htmlFor="email">Email</label>
 			<span id="emailLimit">
-				<em>Field limited to 28 characters</em>
+				<em>{`Field limited to ${
+					remaining.email.limit - 1
+				} characters. Characters remaining: ${
+					remaining.email.limit - 1 - remaining.email.length
+				}`}</em>
 			</span>
 			<input
 				{...register('email')}
@@ -139,11 +188,15 @@ const BusinessCardForm = ({
 				name="email"
 				id="email"
 				onChange={onInputChange}
-				maxLength={28}
+				maxLength={remaining.email.limit}
 			/>
 			<label htmlFor="phone">Phone Number</label>
 			<span id="phoneLimit">
-				<em>Field limited to 20 characters</em>
+				<em>{`Field limited to ${
+					remaining.phone.limit - 1
+				} characters. Characters remaining: ${
+					remaining.phone.limit - 1 - remaining.phone.length
+				}`}</em>
 			</span>
 			<input
 				{...register('phone')}
@@ -151,7 +204,7 @@ const BusinessCardForm = ({
 				name="phone"
 				id="phone"
 				onChange={onInputChange}
-				maxLength={20}
+				maxLength={remaining.phone.limit}
 			/>
 			<label id="affiliation" htmlFor="affiliation">
 				Affiliation
@@ -165,7 +218,7 @@ const BusinessCardForm = ({
 						classNamePrefix="react-select"
 						options={affiliations}
 						value={data.affiliation}
-						onChange={data => {
+						onChange={(data) => {
 							onSelectChange({ ...data, name: 'affiliation' })
 						}}
 					/>
@@ -190,7 +243,7 @@ const BusinessCardForm = ({
 									classNamePrefix="react-select"
 									options={chapters}
 									value={data.chapter}
-									onChange={data => {
+									onChange={(data) => {
 										onSelectChange({
 											...data,
 											name: 'chapter',
@@ -231,7 +284,13 @@ const BusinessCardForm = ({
 							<>
 								<label htmlFor="address1">Address 1</label>
 								<span id="address1Limit">
-									<em>Field limited to 15 characters</em>
+									<em>{`Field limited to ${
+										remaining.address1.limit - 1
+									} characters. Characters remaining: ${
+										remaining.address1.limit -
+										1 -
+										remaining.address1.length
+									}`}</em>
 								</span>
 								<input
 									{...register('address1')}
@@ -239,11 +298,17 @@ const BusinessCardForm = ({
 									name="address1"
 									id="address1"
 									onChange={onInputChange}
-									maxLength={15}
+									maxLength={remaining.address1.limit}
 								/>
 								<label htmlFor="address2">Address 2</label>
 								<span id="address2Limit">
-									<em>Field limited to 15 characters</em>
+									<em>{`Field limited to ${
+										remaining.address2.limit - 1
+									} characters. Characters remaining: ${
+										remaining.address2.limit -
+										1 -
+										remaining.address2.length
+									}`}</em>
 								</span>
 								<input
 									{...register('address2')}
@@ -251,11 +316,17 @@ const BusinessCardForm = ({
 									name="address2"
 									id="address2"
 									onChange={onInputChange}
-									maxLength={15}
+									maxLength={remaining.address2.limit}
 								/>
 								<label htmlFor="city">City</label>
 								<span id="cityLimit">
-									<em>Field limited to 12 characters</em>
+									<em>{`Field limited to ${
+										remaining.city.limit - 1
+									} characters. Characters remaining: ${
+										remaining.city.limit -
+										1 -
+										remaining.city.length
+									}`}</em>
 								</span>
 								<input
 									{...register('city')}
@@ -263,7 +334,7 @@ const BusinessCardForm = ({
 									name="city"
 									id="city"
 									onChange={onInputChange}
-									maxLength={12}
+									maxLength={13}
 								/>
 								<label id="state" htmlFor="state">
 									State
@@ -277,7 +348,7 @@ const BusinessCardForm = ({
 											classNamePrefix="react-select"
 											options={states}
 											value={data.state}
-											onChange={data => {
+											onChange={(data) => {
 												onSelectChange({
 													...data,
 													name: 'state',
@@ -288,7 +359,13 @@ const BusinessCardForm = ({
 								/>
 								<label htmlFor="zipCode">Zip Code</label>
 								<span id="zipCodeLimit">
-									<em>Field limited to 5 characters</em>
+									<em>{`Field limited to ${
+										remaining.zipCode.limit - 1
+									} characters. Characters remaining: ${
+										remaining.zipCode.limit -
+										1 -
+										remaining.zipCode.length
+									}`}</em>
 								</span>
 								<input
 									{...register('zipCode')}
@@ -296,13 +373,22 @@ const BusinessCardForm = ({
 									name="zipCode"
 									id="zipCode"
 									onChange={onInputChange}
-									maxLength={5}
+									maxLength={remaining.zipCode.limit}
 								/>
 							</>
 						)}
 						{walkURL && data.affiliation.value !== 'Chapter' && (
 							<>
 								<label htmlFor="URL">Walk URL alias</label>
+								<span id="URLLimit">
+									<em>{`Field limited to ${
+										remaining.URL.limit - 1
+									} characters. Characters remaining: ${
+										remaining.URL.limit -
+										1 -
+										remaining.URL.length
+									}`}</em>
+								</span>
 								<div id="urlWrapper">
 									<span>
 										<em>afsp.org/</em>
@@ -314,14 +400,22 @@ const BusinessCardForm = ({
 										name="URL"
 										id="URL"
 										onChange={onInputChange}
-										maxLength={20}
+										maxLength={remaining.URL.limit}
 									/>
 								</div>
 							</>
 						)}
 					</>
 				)}
-			<input type="submit" value="Download PDF" />
+			<div className="submit-wrapper">
+				{disabled && (
+					<span style={{ color: '#eb1426' }}>
+						There is a problem with your submission. Please check
+						your entries above for more information.
+					</span>
+				)}
+				<input type="submit" value="Download PDF" disabled={disabled} />
+			</div>
 		</form>
 	)
 }
