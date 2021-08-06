@@ -31,6 +31,9 @@ const formCSS = css`
 		border-radius: 5px;
 		border: 1px solid #262626;
 		min-height: 34.3px;
+		&:invalid {
+			border: 1px solid #eb1426;
+		}
 	}
 	> input {
 		line-height: 1rem;
@@ -73,6 +76,13 @@ const formCSS = css`
 		vertical-align: top;
 		line-height: 24px;
 	}
+	span {
+		color: #525252;
+		font-family: 'AvenirNextLTPro-Regular';
+		font-size: 12px;
+		padding-bottom: 16px;
+		display: inline-block;
+	}
 `
 
 const BusinessCardForm = ({
@@ -96,36 +106,52 @@ const BusinessCardForm = ({
 	return (
 		<form css={formCSS} onSubmit={handleSubmit(submitForm)}>
 			<label htmlFor="name">Name</label>
+			<span id="nameLimit">
+				<em>Field limited to 28 characters</em>
+			</span>
 			<input
 				{...register('name')}
 				type="text"
 				name="name"
 				id="name"
 				onChange={onInputChange}
+				maxLength={28}
 			/>
 			<label htmlFor="title">Title</label>
+			<span id="titleLimit">
+				<em>Field limited to 60 characters</em>
+			</span>
 			<input
 				{...register('title')}
 				type="text"
 				name="title"
 				id="title"
 				onChange={onInputChange}
+				maxLength={60}
 			/>
 			<label htmlFor="email">Email</label>
+			<span id="emailLimit">
+				<em>Field limited to 28 characters</em>
+			</span>
 			<input
 				{...register('email')}
 				type="email"
 				name="email"
 				id="email"
 				onChange={onInputChange}
+				maxLength={28}
 			/>
 			<label htmlFor="phone">Phone Number</label>
+			<span id="phoneLimit">
+				<em>Field limited to 20 characters</em>
+			</span>
 			<input
 				{...register('phone')}
 				type="text"
 				name="phone"
 				id="phone"
 				onChange={onInputChange}
+				maxLength={20}
 			/>
 			<label id="affiliation" htmlFor="affiliation">
 				Affiliation
@@ -204,28 +230,40 @@ const BusinessCardForm = ({
 						{showAddress && data.affiliation.value === 'Chapter' && (
 							<>
 								<label htmlFor="address1">Address 1</label>
+								<span id="address1Limit">
+									<em>Field limited to 15 characters</em>
+								</span>
 								<input
 									{...register('address1')}
 									type="text"
 									name="address1"
 									id="address1"
 									onChange={onInputChange}
+									maxLength={15}
 								/>
 								<label htmlFor="address2">Address 2</label>
+								<span id="address2Limit">
+									<em>Field limited to 15 characters</em>
+								</span>
 								<input
 									{...register('address2')}
 									type="text"
 									name="address2"
 									id="address2"
 									onChange={onInputChange}
+									maxLength={15}
 								/>
 								<label htmlFor="city">City</label>
+								<span id="cityLimit">
+									<em>Field limited to 12 characters</em>
+								</span>
 								<input
 									{...register('city')}
 									type="text"
 									name="city"
 									id="city"
 									onChange={onInputChange}
+									maxLength={12}
 								/>
 								<label id="state" htmlFor="state">
 									State
@@ -249,12 +287,16 @@ const BusinessCardForm = ({
 									)}
 								/>
 								<label htmlFor="zipCode">Zip Code</label>
+								<span id="zipCodeLimit">
+									<em>Field limited to 5 characters</em>
+								</span>
 								<input
 									{...register('zipCode')}
 									type="text"
 									name="zipCode"
 									id="zipCode"
 									onChange={onInputChange}
+									maxLength={5}
 								/>
 							</>
 						)}
@@ -262,7 +304,9 @@ const BusinessCardForm = ({
 							<>
 								<label htmlFor="URL">Walk URL alias</label>
 								<div id="urlWrapper">
-									<span>afsp.org/</span>
+									<span>
+										<em>afsp.org/</em>
+									</span>
 									<input
 										{...register('URL')}
 										value={data.url ? data.url : ''}
@@ -270,6 +314,7 @@ const BusinessCardForm = ({
 										name="URL"
 										id="URL"
 										onChange={onInputChange}
+										maxLength={20}
 									/>
 								</div>
 							</>

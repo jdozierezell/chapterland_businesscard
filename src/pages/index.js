@@ -89,6 +89,11 @@ export default function Home() {
 	}
 
 	const onInputChange = e => {
+		if (e.target.value.length === e.target.maxLength) {
+			e.target.style.border = '1px solid #eb1426'
+			document.getElementById(`${e.target.name}Limit`).style.color =
+				'#eb1426'
+		}
 		switch (e.target.name) {
 			case 'name':
 				setData({ ...data, name: e.target.value })
