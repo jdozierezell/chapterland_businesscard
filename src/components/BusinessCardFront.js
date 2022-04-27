@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Stage, Layer, Text, Group, Image as KonvaImage } from 'react-konva'
 import useImage from 'use-image'
 
-import businessCardBackground from '../images/businesscardback.jpg'
+import businessCardBackground from '../images/businesscardfront.jpg'
 import facebookLogo from '../images/f-Logo_White.png'
 import twitterLogo from '../images/Twitter_Social_Icon_Circle_White.png'
 import instagramLogo from '../images/glyph-logo_May2016_white.png'

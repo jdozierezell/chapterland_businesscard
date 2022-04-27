@@ -10,10 +10,14 @@ import {
 } from 'react-konva'
 import useImage from 'use-image'
 
+import businessCardBackground from '../images/businesscardback_no_logo.jpg'
+
 const BusinessCardBack = ({ data, showAddress, width, height }) => {
+	const [background] = useImage(businessCardBackground)
 	const defaultImage = `https://aws-fetch.s3.us-east-1.amazonaws.com/logos/businesscards/AFSP_Logo_CMYK.png`
 	let imageFileName = defaultImage
 	let address1, address2, city, state, zipCode
+	let addressPosition = 0
 	if (data.affiliation) {
 		switch (data.affiliation.value) {
 			case 'Chapter':
@@ -183,19 +187,29 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 	// 47 = distance from top of image to logo / 3
 	// 138 = height of logo / 3
 	// 23 = distance from right of image to logo / 3
+	console.log((width -
+		(imageWidth * imageRatio +
+			ratio * 2 +
+			addressWidth * ratio)) /
+	2)
+	console.log(addressWidth)
+	if(addressWidth > 0) {
+		addressPosition = addressWidth / 4
+	}
+	console.log(addressPosition)
+	console.log(addressWidth)
+	console.log(ratio)
 	return (
 		<Stage width={width} height={height}>
 			<Layer>
-				<Rect x={0} y={0} width={width} height={height} fill={white} />
+				<KonvaImage image={background} width={width} height={height} />
 				<Group
 					x={
 						(width -
-							(imageWidth * imageRatio +
-								6 * ratio * 2 +
-								addressWidth * ratio)) /
-						2
+							(imageWidth * imageRatio + addressWidth * ratio)) /
+						2 - addressPosition
 					}
-					y={height / 1.75 - ((imageHeight - 47) * imageRatio) / 2}
+					y={height / 2.75 - ((imageHeight - 47) * imageRatio) / 2}
 				>
 					<KonvaImage
 						image={image}
