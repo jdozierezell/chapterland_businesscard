@@ -187,18 +187,11 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 	// 47 = distance from top of image to logo / 3
 	// 138 = height of logo / 3
 	// 23 = distance from right of image to logo / 3
-	console.log((width -
-		(imageWidth * imageRatio +
-			ratio * 2 +
-			addressWidth * ratio)) /
-	2)
-	console.log(addressWidth)
 	if(addressWidth > 0) {
 		addressPosition = addressWidth / 4
+	} else {
+		addressPosition = ratio
 	}
-	console.log(addressPosition)
-	console.log(addressWidth)
-	console.log(ratio)
 	return (
 		<Stage width={width} height={height}>
 			<Layer>
