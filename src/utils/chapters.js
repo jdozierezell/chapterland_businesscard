@@ -204,6 +204,12 @@ const chapters = [
 	},
 	{ value: 'Oregon', label: 'Oregon', logo: 'Oregon', url: 'oregon' },
 	{
+		value: 'Puerto Rico',
+		label: 'Puerto Rico',
+		logo: 'Puerto_Rico',
+		url: 'puertorico',
+	},
+	{
 		value: 'Rhode Island',
 		label: 'Rhode Island',
 		logo: 'Rhode_Island',
@@ -266,6 +272,12 @@ const chapters = [
 		label: 'Washington',
 		logo: 'Washington',
 		url: 'washington',
+	},
+	{
+		value: 'West Texas',
+		label: 'West Texas',
+		logo: 'West_Texas',
+		url: 'westtexas',
 	},
 	{
 		value: 'West Virginia',
