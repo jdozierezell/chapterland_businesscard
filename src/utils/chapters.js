@@ -252,6 +252,12 @@ const chapters = [
 		url: 'southeasttexas',
 	},
 	{
+		value: 'Southern California Tri-Counties',
+		label: 'Southern California Tri-Counties',
+		logo: 'Southern California Tri-Counties',
+		url: 'tricounties',
+	},
+	{
 		value: 'Southwest Florida',
 		label: 'Southwest Florida',
 		logo: 'Southwest_Florida',
