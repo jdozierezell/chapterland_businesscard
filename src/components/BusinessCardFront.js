@@ -5,7 +5,7 @@ import useImage from 'use-image'
 
 import businessCardBackground from '../images/businesscardfront.jpg'
 import facebookLogo from '../images/f-Logo_White.png'
-import twitterLogo from '../images/Twitter_Social_Icon_Circle_White.png'
+import twitterLogo from '../images/x-twitter.png'
 import instagramLogo from '../images/glyph-logo_May2016_white.png'
 
 const BusinessCardFront = ({ data, width, height }) => {

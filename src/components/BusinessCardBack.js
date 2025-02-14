@@ -57,8 +57,8 @@ const BusinessCardBack = ({ data, showAddress, width, height }) => {
 				imageFileName = defaultImage
 				break
 			case 'DC':
-				address1 = '440 First Street, NW'
-				address2 = 'Suite 300'
+				address1 = '50 F Street NW'
+				address2 = 'Suite 330'
 				city = 'Washington'
 				state = 'D.C.'
 				zipCode = 20001
